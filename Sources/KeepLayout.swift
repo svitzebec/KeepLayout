@@ -11,7 +11,7 @@
 //MARK: KeepAttribute + Swift
 /// Extension to redefine properties using Swift-compatible types.
 protocol KeepAttribute_SwiftCompatibility {
-    var isEqual: KeepValue { get set }
+    var equal: KeepValue { get set }
     var max: KeepValue { get set }
     var min: KeepValue  { get set }
 }
@@ -119,8 +119,13 @@ extension KeepValue_Decomposed: KeepValue {
 
 /// Implementation of compatibility accessors.
 extension KeepAttribute: KeepAttribute_SwiftCompatibility {
+
+	// Introduce a dummy variable to ensure the compilation of this fle
+	private var dummy: Int {
+		return 0
+	}
     
-    public var isEqual: KeepValue {
+    public var equal: KeepValue {
         get {
             return self.decomposed_equal
         }
