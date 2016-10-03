@@ -11,7 +11,7 @@
 //MARK: KeepAttribute + Swift
 /// Extension to redefine properties using Swift-compatible types.
 protocol KeepAttribute_SwiftCompatibility {
-    var equal: KeepValue { get set }
+    var isEqual: KeepValue { get set }
     var max: KeepValue { get set }
     var min: KeepValue  { get set }
 }
@@ -31,29 +31,29 @@ public extension KeepValue {
         return KeepPriorityRequired
     }
     var isNone: Bool {
-        return isnan(self.value)
+        return self.value.isNaN
     }
 }
 
 /// Value, that represents no value. KeepNone.isNone will return true.
-public let KeepNone: KeepValue = KeepValue_Decomposed(value: CGFloat.NaN, priority: 0)
+public let KeepNone: KeepValue = KeepValue_Decomposed(value: CGFloat.nan, priority: 0)
 
 /// Constructor with arbitrary priority.
-public func KeepValueMake(value: KeepValue, _ priority: KeepPriority) -> KeepValue {
+public func KeepValueMake(_ value: KeepValue, _ priority: KeepPriority) -> KeepValue {
     return KeepValue_Decomposed(value: value.value, priority: priority)
 }
 
 /// Constructors for 4 basic priorities
-public func KeepRequired(value: KeepValue) -> KeepValue {
+public func KeepRequired(_ value: KeepValue) -> KeepValue {
     return KeepValueMake(value, KeepPriorityRequired)
 }
-public func KeepHigh(value: KeepValue) -> KeepValue {
+public func KeepHigh(_ value: KeepValue) -> KeepValue {
     return KeepValueMake(value, KeepPriorityHigh)
 }
-public func KeepLow(value: KeepValue) -> KeepValue {
+public func KeepLow(_ value: KeepValue) -> KeepValue {
     return KeepValueMake(value, KeepPriorityLow)
 }
-public func KeepFitting(value: KeepValue) -> KeepValue {
+public func KeepFitting(_ value: KeepValue) -> KeepValue {
     return KeepValueMake(value, KeepPriorityFitting)
 }
 
@@ -120,7 +120,7 @@ extension KeepValue_Decomposed: KeepValue {
 /// Implementation of compatibility accessors.
 extension KeepAttribute: KeepAttribute_SwiftCompatibility {
     
-    public var equal: KeepValue {
+    public var isEqual: KeepValue {
         get {
             return self.decomposed_equal
         }
